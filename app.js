@@ -55,14 +55,13 @@ form.addEventListener('submit', function (event) {
         });
 });
 
-// Función para editar una fila
 function editRow(index, facultad, codMateria, materia, bibliografia) {
     const newFacultad = prompt("Nueva Facultad:", facultad);
     const newCodMateria = prompt("Nuevo Código de Materia:", codMateria);
     const newMateria = prompt("Nueva Materia:", materia);
     const newBibliografia = prompt("Nueva Bibliografía:", bibliografia);
     if (newFacultad !== null && newCodMateria !== null && newMateria !== null && newBibliografia !== null) {
-        fetch(`${apiUrl}?action=update&id=${index}&facultad=${newFacultad}&codMateria=${newCodMateria}&materia=${newMateria}&bibliografia=${newBibliografia}`)
+        fetch(`${apiUrl}?action=update&id=${index + 2}&facultad=${newFacultad}&codMateria=${newCodMateria}&materia=${newMateria}&bibliografia=${newBibliografia}`)
             .then(response => response.text())
             .then(data => {
                 alert(data);
@@ -75,10 +74,9 @@ function editRow(index, facultad, codMateria, materia, bibliografia) {
     }
 }
 
-// Función para eliminar una fila
 function deleteRow(index) {
     if (confirm("¿Estás seguro de que quieres eliminar este registro?")) {
-        fetch(`${apiUrl}?action=delete&id=${index}`)
+        fetch(`${apiUrl}?action=delete&id=${index + 2}`)
             .then(response => response.text())
             .then(data => {
                 alert(data);
@@ -90,6 +88,7 @@ function deleteRow(index) {
             });
     }
 }
+
 // Función para buscar datos por cualquier columna en Google Sheets
 function searchData() {
     const searchTerm = document.getElementById('searchTerm').value.trim().toLowerCase();
