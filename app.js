@@ -17,7 +17,7 @@ function loadData() {
                     <td>${row[2]}</td>
                     <td>${row[3]}</td>
                     <td>
-                        <button class="btn btn-warning btn-sm" onclick="editRow(${index}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
+                        <button class="btn btn-warning btn-sm" onclick="editRow(${index}, '${row[3]}', '${row[3}', '${row[2]}', '${row[3]}')">
                             <i class="bi bi-pencil"></i> Editar
                         </button>
                         <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})">
