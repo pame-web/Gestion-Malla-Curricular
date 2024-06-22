@@ -1,158 +1,65 @@
-const form = document.getElementById('dataForm');
-const dataTable = document.getElementById('dataTable');
-const apiUrl = 'https://script.google.com/macros/s/AKfycbxuN73mNTFjcNAlC62wH_Ob-zYnxPhOkMokJMWxCGBU-ddE1UJ3HRMcp7CHqM-5hwtf/exec';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Datos con Google Sheets</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1>Software Gestión de la Bibliografía de las Materias</h1>
+            </div>
+        </div>
+    </div>
+    <form id="dataForm">
+        <input type="text" id="facultad" placeholder="Facultad" required class="form-control mb-2">
+        <input type="text" id="codMateria" placeholder="Código de Materia" required class="form-control mb-2">
+        <input type="text" id="materia" placeholder="Materia" required class="form-control mb-2">
+        <input type="text" id="bibliografia" placeholder="Bibliografía" required class="form-control mb-2">
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Agregar
+        </button>
+    </form>
 
-// Función para cargar todos los datos desde Google Sheets
-function loadData() {
-    fetch(`${apiUrl}?action=read`)
-        .then(response => response.json())
-        .then(data => {
-            dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
-            data.forEach((row, index) => {
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${row[0]}</td>
-                    <td>${row[1]}</td>
-                    <td>${row[2]}</td>
-                    <td>${row[3]}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="editRow(${index}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
-                            <i class="bi bi-pencil"></i> Editar
-                        </button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})">
-                            <i class="bi bi-trash"></i> Eliminar
-                        </button>
-                    </td>
-                `;
-                dataTable.appendChild(newRow);
-            });
-        })
-        .catch(error => {
-            console.error('Error al cargar datos:', error);
-            alert('Ocurrió un error al cargar los datos. Por favor, intenta nuevamente.');
-        });
-}
+    <form id="searchForm" class="mt-3">
+        <input type="text" id="searchTerm" placeholder="Busque aqui" class="form-control mb-2">
+        <button type="button" class="btn btn-primary" onclick="searchData()">
+            <i class="bi bi-search"></i> Buscar
+        </button>
+        <button type="button" class="btn btn-warning" onclick="clearFilter()">
+            <i class="bi bi-slash-circle"></i> Limpiar
+        </button>
+    </form>
 
-// Función para agregar datos a Google Sheets
-form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const facultad = document.getElementById('facultad').value;
-    const codMateria = document.getElementById('codMateria').value;
-    const materia = document.getElementById('materia').value;
-    const bibliografia = document.getElementById('bibliografia').value;
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Facultad</th>
+                <th>Código de Materia</th>
+                <th>Materia</th>
+                <th>Bibliografía</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="dataTable">
+            <!-- Aquí se añadirán las filas de datos -->
+        </tbody>
+    </table>
 
-    fetch(`${apiUrl}?action=create&facultad=${facultad}&codMateria=${codMateria}&materia=${materia}&bibliografia=${bibliografia}`)
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            form.reset();
-            loadData();
-        })
-        .catch(error => {
-            console.error('Error al agregar datos:', error);
-            alert('Ocurrió un error al agregar los datos. Por favor, intenta nuevamente.');
-        });
-});
-
-function editRow(index, facultad, codMateria, materia, bibliografia) {
-    const newFacultad = prompt("Nueva Facultad:", facultad);
-    const newCodMateria = prompt("Nuevo Código de Materia:", codMateria);
-    const newMateria = prompt("Nueva Materia:", materia);
-    const newBibliografia = prompt("Nueva Bibliografía:", bibliografia);
-    if (newFacultad !== null && newCodMateria !== null && newMateria !== null && newBibliografia !== null) {
-        fetch(`${apiUrl}?action=update&id=${index + 1}&facultad=${newFacultad}&codMateria=${newCodMateria}&materia=${newMateria}&bibliografia=${newBibliografia}`)
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                loadData();
-            })
-            .catch(error => {
-                console.error('Error al editar datos:', error);
-                alert('Ocurrió un error al editar los datos. Por favor, intenta nuevamente.');
-            });
-    }
-}
-
-function deleteRow(index) {
-    if (confirm("¿Estás seguro de que quieres eliminar este registro?")) {
-        fetch(`${apiUrl}?action=delete&id=${index + 1}`)
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                loadData();
-            })
-            .catch(error => {
-                console.error('Error al eliminar datos:', error);
-                alert('Ocurrió un error al eliminar los datos. Por favor, intenta nuevamente.');
-            });
-    }
-}
-
-// Función para buscar datos por cualquier columna en Google Sheets
-function searchData() {
-    const searchTerm = document.getElementById('searchTerm').value.trim().toLowerCase();
-
-    fetch(`${apiUrl}?action=read`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
-            let foundAny = false; // Variable para verificar si se encontraron resultados
-
-            data.forEach((row, index) => {
-                let found = false;
-                for (let i = 0; i < row.length; i++) { // Comenzar desde 1 para omitir el ID en la búsqueda
-                    if (row[i].toString().toLowerCase().includes(searchTerm)) {
-                        found = true;
-                        break; // Si se encuentra el término en alguna columna, salir del bucle
-                    }
-                }
-                if (found) {
-                    foundAny = true; // Se encontró al menos un resultado
-                    const newRow = document.createElement('tr');
-                    let rowContent = `<td>${index + 1}</td>`; // Mostrar el ID correspondiente
-
-                    // Construir las celdas de datos
-                    for (let i = 0; i < row.length; i++) { // Comenzar desde 1 para omitir el ID en la construcción de celdas
-                        rowContent += `<td>${row[i]}</td>`;
-                    }
-
-                    // Botones de acciones
-                    rowContent += `
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
-                                <i class="bi bi-pencil"></i> Editar
-                            </button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteRow(${index + 1})">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                        </td>
-                    `;
-                    newRow.innerHTML = rowContent;
-                    dataTable.appendChild(newRow);
-                }
-            });
-
-            if (!foundAny) {
-                dataTable.innerHTML = `<tr><td colspan="${data[0].length + 1}">No se encontraron resultados para "${searchTerm}".</td></tr>`;
-            }
-        })
-        .catch(error => {
-            console.error('Error al buscar datos:', error);
-            alert('Ocurrió un error al buscar datos. Por favor, intenta nuevamente.');
-        });
-}
-
-// Función para limpiar el filtro y mostrar todos los datos
-function clearFilter() {
-    document.getElementById('searchTerm').value = ''; // Limpiar el campo de búsqueda
-    loadData(); // Volver a cargar todos los datos
-}
-
-// Cargar los datos cuando se carga la página
-window.onload = loadData;
+    <script src="app.js"></script>
+</body>
+</html>
