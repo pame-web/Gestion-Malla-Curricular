@@ -7,7 +7,7 @@ function loadData() {
     fetch(`${apiUrl}?action=read`)
         .then(response => response.json())
         .then(data => {
-            dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
+            dataTable.innerHTML = ''; // Limpiar la tabla antes de nnnncargar nuevos datos
             data.forEach((row, index) => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
