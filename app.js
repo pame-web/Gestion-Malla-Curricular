@@ -128,7 +128,7 @@ function searchData() {
                             <button class="btn btn-warning btn-sm" onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
                                 <i class="bi bi-pencil"></i> Editar
                             </button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteRow(${index + 1})">
+                            <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})">
                                 <i class="bi bi-trash"></i> Eliminar
                             </button>
                         </td>
