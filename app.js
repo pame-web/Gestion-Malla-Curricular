@@ -5,7 +5,7 @@ const apiUrl = 'https://script.google.com/macros/s/AKfycbyKEzTqgqcY3zKDpjffZyX4a
 // Función para cargar todos los datos desde Google Sheets
 function loadData() {
     fetch(`${apiUrl}?action=read`)
-        .then(response => response.json())
+        .then(codMateria => codMateria.json())
         .then(data => {
             dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
             data.forEach((row, index) => {
