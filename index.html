@@ -11,28 +11,42 @@
         th, td { border: 1px solid black; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
     </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>Gestión de Datos</h1>
 
     <form id="dataForm">
-        <input type="text" id="name" placeholder="Nombre" required>
-        <input type="email" id="email" placeholder="Correo" required>
-        <button type="submit">Agregar</button>
+        <input type="text" id="facultad" placeholder="Facultad" required class="form-control mb-2">
+        <input type="text" id="codMateria" placeholder="Código de Materia" required class="form-control mb-2">
+        <input type="text" id="materia" placeholder="Materia" required class="form-control mb-2">
+        <input type="text" id="bibliografia" placeholder="Bibliografía" required class="form-control mb-2">
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Agregar
+        </button>
     </form>
 
-    <form id="searchForm">
-        <input type="text" id="searchTerm" placeholder="Buscar por nombre">
-        <button type="button" onclick="searchData()">Buscar</button>
-        <button type="button" onclick="clearFilter()">Limpiar</button>
+    <form id="searchForm" class="mt-3">
+        <input type="text" id="searchTerm" placeholder="Buscar por facultad o materia" class="form-control mb-2">
+        <button type="button" class="btn btn-primary" onclick="searchData()">
+            <i class="bi bi-search"></i> Buscar
+        </button>
+        <button type="button" class="btn btn-warning" onclick="clearFilter()">
+            <i class="bi bi-slash-circle"></i> Limpiar
+        </button>
     </form>
 
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Correo</th>
+                <th>Facultad</th>
+                <th>Código de Materia</th>
+                <th>Materia</th>
+                <th>Bibliografía</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -42,71 +56,5 @@
     </table>
 
     <script src="app.js"></script>
-    <script>
-        const form = document.getElementById('dataForm');
-        const dataTable = document.getElementById('dataTable');
-        
-        // Cargar los datos cuando se carga la página
-        window.onload = function() {
-            loadData();
-        };
-
-        // Función para agregar datos a Google Sheets
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-
-            fetch(`${apiUrl}?action=create&name=${name}&email=${email}`)
-                .then(response => response.text())
-                .then(data => {
-                    alert(data);
-                    form.reset();
-                    loadData();
-                });
-        });
-
-        // Función para buscar datos por nombre en Google Sheets
-        function searchData() {
-            const searchTerm = document.getElementById('searchTerm').value.trim().toLowerCase();
-
-            fetch(`${apiUrl}?action=read`)
-                .then(response => response.json())
-                .then(data => {
-                    dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
-                    data.forEach((row, index) => {
-                        let found = false;
-                        row.forEach(cell => {
-                            if (cell.toLowerCase().includes(searchTerm)) {
-                                found = true;
-                            }
-                        });
-                        if (found) {
-                            const newRow = document.createElement('tr');
-                            newRow.innerHTML = `
-                                <td>${index + 1}</td>
-                                <td>${row[0]}</td>
-                                <td>${row[1]}</td>
-                                <td>
-                                    <button onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}')">Editar</button>
-                                    <button onclick="deleteRow(${index + 1})">Eliminar</button>
-                                </td>
-                            `;
-                            dataTable.appendChild(newRow);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error al buscar datos:', error);
-                    alert('Ocurrió un error al buscar datos. Por favor, intenta nuevamente.');
-                });
-        }
-
-        // Función para limpiar el filtro y mostrar todos los datos
-        function clearFilter() {
-            document.getElementById('searchTerm').value = ''; // Limpiar el campo de búsqueda
-            loadData(); // Volver a cargar todos los datos
-        }
-    </script>
 </body>
 </html>
