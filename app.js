@@ -108,7 +108,7 @@ function searchData() {
 
             data.forEach((row, index) => {
                 let found = false;
-                for (let i = 0; i < row.length; i++) {
+                for (let i = 1; i < row.length; i++) { // Comenzar desde 1 para omitir el ID en la búsqueda
                     if (row[i].toString().toLowerCase().includes(searchTerm)) {
                         found = true;
                         break; // Si se encuentra el término en alguna columna, salir del bucle
@@ -117,13 +117,17 @@ function searchData() {
                 if (found) {
                     foundAny = true; // Se encontró al menos un resultado
                     const newRow = document.createElement('tr');
-                    let rowContent = '';
-                    for (let i = 0; i < row.length; i++) {
+                    let rowContent = `<td>${index + 1}</td>`; // Mostrar el ID correspondiente
+
+                    // Construir las celdas de datos
+                    for (let i = 1; i < row.length; i++) { // Comenzar desde 1 para omitir el ID en la construcción de celdas
                         rowContent += `<td>${row[i]}</td>`;
                     }
+
+                    // Botones de acciones
                     rowContent += `
                         <td>
-                            <button class="btn btn-warning btn-sm" onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
+                            <button class="btn btn-warning btn-sm" onclick="editRow(${index + 1}, '${row[1]}', '${row[2]}', '${row[3]}', '${row[4]}')">
                                 <i class="bi bi-pencil"></i> Editar
                             </button>
                             <button class="btn btn-danger btn-sm" onclick="deleteRow(${index + 1})">
