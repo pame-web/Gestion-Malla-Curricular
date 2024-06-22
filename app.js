@@ -91,7 +91,7 @@ function deleteRow(id) {
     }
 }
 
-// Función para buscar datos por nombre en Google Sheets
+// Función para buscar datos por cualquier columna en Google Sheets
 function searchData() {
     const searchTerm = document.getElementById('searchTerm').value.trim().toLowerCase();
 
@@ -108,20 +108,20 @@ function searchData() {
 
             data.forEach((row, index) => {
                 let found = false;
-                row.forEach(cell => {
-                    if (cell.toString().toLowerCase().includes(searchTerm)) {
+                for (let i = 0; i < row.length; i++) {
+                    if (row[i].toString().toLowerCase().includes(searchTerm)) {
                         found = true;
+                        break; // Si se encuentra el término en alguna columna, salir del bucle
                     }
-                });
+                }
                 if (found) {
                     foundAny = true; // Se encontró al menos un resultado
                     const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td>${row[0]}</td>
-                        <td>${row[1]}</td>
-                        <td>${row[2]}</td>
-                        <td>${row[3]}</td>
+                    let rowContent = '';
+                    for (let i = 0; i < row.length; i++) {
+                        rowContent += `<td>${row[i]}</td>`;
+                    }
+                    rowContent += `
                         <td>
                             <button class="btn btn-warning btn-sm" onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
                                 <i class="bi bi-pencil"></i> Editar
@@ -131,12 +131,13 @@ function searchData() {
                             </button>
                         </td>
                     `;
+                    newRow.innerHTML = rowContent;
                     dataTable.appendChild(newRow);
                 }
             });
 
             if (!foundAny) {
-                dataTable.innerHTML = `<tr><td colspan="6">No se encontraron resultados para "${searchTerm}".</td></tr>`;
+                dataTable.innerHTML = `<tr><td colspan="${data[0].length + 1}">No se encontraron resultados para "${searchTerm}".</td></tr>`;
             }
         })
         .catch(error => {
