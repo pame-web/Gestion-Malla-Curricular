@@ -67,3 +67,33 @@ function deleteRow(id) {
 
 // Cargar los datos cuando se carga la página
 window.onload = loadData;
+// Función para buscar datos por nombre en Google Sheets
+function searchData() {
+    const searchTerm = document.getElementById('searchTerm').value.trim().toLowerCase();
+
+    fetch(`${apiUrl}?action=read`)
+        .then(response => response.json())
+        .then(data => {
+            dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
+            data.forEach((row, index) => {
+                const nombre = row[0].toLowerCase();
+                if (nombre.includes(searchTerm)) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${row[0]}</td>
+                        <td>${row[1]}</td>
+                        <td>
+                            <button onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}')">Editar</button>
+                            <button onclick="deleteRow(${index + 1})">Eliminar</button>
+                        </td>
+                    `;
+                    dataTable.appendChild(newRow);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error al buscar datos:', error);
+            alert('Ocurrió un error al buscar datos. Por favor, intenta nuevamente.');
+        });
+}
