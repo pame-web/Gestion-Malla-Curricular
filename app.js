@@ -96,17 +96,25 @@ function searchData() {
     const searchTerm = document.getElementById('searchTerm').value.trim().toLowerCase();
 
     fetch(`${apiUrl}?action=read`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
+            let foundAny = false; // Variable para verificar si se encontraron resultados
+
             data.forEach((row, index) => {
                 let found = false;
                 row.forEach(cell => {
-                    if (cell.toLowerCase().includes(searchTerm)) {
+                    if (cell.toString().toLowerCase().includes(searchTerm)) {
                         found = true;
                     }
                 });
                 if (found) {
+                    foundAny = true; // Se encontró al menos un resultado
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <td>${index + 1}</td>
@@ -126,6 +134,10 @@ function searchData() {
                     dataTable.appendChild(newRow);
                 }
             });
+
+            if (!foundAny) {
+                dataTable.innerHTML = `<tr><td colspan="6">No se encontraron resultados para "${searchTerm}".</td></tr>`;
+            }
         })
         .catch(error => {
             console.error('Error al buscar datos:', error);
