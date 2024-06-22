@@ -1,6 +1,6 @@
 const form = document.getElementById('dataForm');
 const dataTable = document.getElementById('dataTable');
-const apiUrl = 'https://script.google.com/macros/s/AKfycbypNq_6dNVORCb04ln9fWXWk6obkMEFQytAE30_t6vJJ-VE6m8E0-U5xhTh9QQ00j__/exec';
+const apiUrl = 'https://script.google.com/macros/s/AKfycbx5PyIV3EPsuPAx3QMsgMWphKxVFDov8XGAUOJHp0vFrtYJJaJiyCniWPw91Xvs1clW/exec';
 
 // Función para cargar todos los datos desde Google Sheets
 function loadData() {
