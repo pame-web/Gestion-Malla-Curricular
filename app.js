@@ -7,48 +7,70 @@ function loadData() {
     fetch(`${apiUrl}?action=read`)
         .then(response => response.json())
         .then(data => {
-            dataTable.innerHTML = ''; // Limpiar la tabla antes de nnnncargar nuevos datos
+            dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
             data.forEach((row, index) => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td>${index + 1}</td>
                     <td>${row[0]}</td>
                     <td>${row[1]}</td>
+                    <td>${row[2]}</td>
+                    <td>${row[3]}</td>
                     <td>
-                        <button onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}')">Editar</button>
-                        <button onclick="deleteRow(${index + 1})">Eliminar</button>
+                        <button class="btn btn-warning btn-sm" onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteRow(${index + 1})">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
                     </td>
                 `;
                 dataTable.appendChild(newRow);
             });
+        })
+        .catch(error => {
+            console.error('Error al cargar datos:', error);
+            alert('Ocurrió un error al cargar los datos. Por favor, intenta nuevamente.');
         });
 }
 
 // Función para agregar datos a Google Sheets
 form.addEventListener('submit', function (event) {
     event.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
+    const facultad = document.getElementById('facultad').value;
+    const codMateria = document.getElementById('codMateria').value;
+    const materia = document.getElementById('materia').value;
+    const bibliografia = document.getElementById('bibliografia').value;
 
-    fetch(`${apiUrl}?action=create&name=${name}&email=${email}`)
+    fetch(`${apiUrl}?action=create&facultad=${facultad}&codMateria=${codMateria}&materia=${materia}&bibliografia=${bibliografia}`)
         .then(response => response.text())
         .then(data => {
             alert(data);
             form.reset();
             loadData();
+        })
+        .catch(error => {
+            console.error('Error al agregar datos:', error);
+            alert('Ocurrió un error al agregar los datos. Por favor, intenta nuevamente.');
         });
 });
 
 // Función para editar una fila
-function editRow(id, name, email) {
-    const newName = prompt("Nuevo Nombre:", name);
-    const newEmail = prompt("Nuevo Correo:", email);
-    if (newName !== null && newEmail !== null) {
-        fetch(`${apiUrl}?action=update&id=${id}&name=${newName}&email=${newEmail}`)
+function editRow(id, facultad, codMateria, materia, bibliografia) {
+    const newFacultad = prompt("Nueva Facultad:", facultad);
+    const newCodMateria = prompt("Nuevo Código de Materia:", codMateria);
+    const newMateria = prompt("Nueva Materia:", materia);
+    const newBibliografia = prompt("Nueva Bibliografía:", bibliografia);
+    if (newFacultad !== null && newCodMateria !== null && newMateria !== null && newBibliografia !== null) {
+        fetch(`${apiUrl}?action=update&id=${id}&facultad=${newFacultad}&codMateria=${newCodMateria}&materia=${newMateria}&bibliografia=${newBibliografia}`)
             .then(response => response.text())
             .then(data => {
                 alert(data);
                 loadData();
+            })
+            .catch(error => {
+                console.error('Error al editar datos:', error);
+                alert('Ocurrió un error al editar los datos. Por favor, intenta nuevamente.');
             });
     }
 }
@@ -61,6 +83,10 @@ function deleteRow(id) {
             .then(data => {
                 alert(data);
                 loadData();
+            })
+            .catch(error => {
+                console.error('Error al eliminar datos:', error);
+                alert('Ocurrió un error al eliminar los datos. Por favor, intenta nuevamente.');
             });
     }
 }
@@ -86,9 +112,15 @@ function searchData() {
                         <td>${index + 1}</td>
                         <td>${row[0]}</td>
                         <td>${row[1]}</td>
+                        <td>${row[2]}</td>
+                        <td>${row[3]}</td>
                         <td>
-                            <button onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}')">Editar</button>
-                            <button onclick="deleteRow(${index + 1})">Eliminar</button>
+                            <button class="btn btn-warning btn-sm" onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
+                                <i class="bi bi-pencil"></i> Editar
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteRow(${index + 1})">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
                         </td>
                     `;
                     dataTable.appendChild(newRow);
