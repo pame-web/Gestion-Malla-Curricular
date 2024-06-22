@@ -61,7 +61,7 @@ function editRow(index, facultad, codMateria, materia, bibliografia) {
     const newMateria = prompt("Nueva Materia:", materia);
     const newBibliografia = prompt("Nueva Bibliografía:", bibliografia);
     if (newFacultad !== null && newCodMateria !== null && newMateria !== null && newBibliografia !== null) {
-        fetch(`${apiUrl}?action=update&id=${index + 2}&facultad=${newFacultad}&codMateria=${newCodMateria}&materia=${newMateria}&bibliografia=${newBibliografia}`)
+        fetch(`${apiUrl}?action=update&id=${index + 1}&facultad=${newFacultad}&codMateria=${newCodMateria}&materia=${newMateria}&bibliografia=${newBibliografia}`)
             .then(response => response.text())
             .then(data => {
                 alert(data);
@@ -76,7 +76,7 @@ function editRow(index, facultad, codMateria, materia, bibliografia) {
 
 function deleteRow(index) {
     if (confirm("¿Estás seguro de que quieres eliminar este registro?")) {
-        fetch(`${apiUrl}?action=delete&id=${index + 2}`)
+        fetch(`${apiUrl}?action=delete&id=${index + 1}`)
             .then(response => response.text())
             .then(data => {
                 alert(data);
