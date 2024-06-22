@@ -108,7 +108,7 @@ function searchData() {
 
             data.forEach((row, index) => {
                 let found = false;
-                for (let i = 1; i < row.length; i++) { // Comenzar desde 1 para omitir el ID en la búsqueda
+                for (let i = 0; i < row.length; i++) { // Comenzar desde 1 para omitir el ID en la búsqueda
                     if (row[i].toString().toLowerCase().includes(searchTerm)) {
                         found = true;
                         break; // Si se encuentra el término en alguna columna, salir del bucle
@@ -120,7 +120,7 @@ function searchData() {
                     let rowContent = `<td>${index + 1}</td>`; // Mostrar el ID correspondiente
 
                     // Construir las celdas de datos
-                    for (let i = 1; i < row.length; i++) { // Comenzar desde 1 para omitir el ID en la construcción de celdas
+                    for (let i = 0; i < row.length; i++) { // Comenzar desde 1 para omitir el ID en la construcción de celdas
                         rowContent += `<td>${row[i]}</td>`;
                     }
 
