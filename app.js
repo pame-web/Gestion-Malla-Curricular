@@ -2,7 +2,7 @@ const form = document.getElementById('dataForm');
 const dataTable = document.getElementById('dataTable');
 const apiUrl = 'https://script.google.com/macros/s/AKfycbypNq_6dNVORCb04ln9fWXWk6obkMEFQytAE30_t6vJJ-VE6m8E0-U5xhTh9QQ00j__/exec';
 
-// Función para cargar datos desde Google Sheets
+// Función para cargar todos los datos desde Google Sheets
 function loadData() {
     fetch(`${apiUrl}?action=read`)
         .then(response => response.json())
@@ -65,8 +65,6 @@ function deleteRow(id) {
     }
 }
 
-// Cargar los datos cuando se carga la página
-window.onload = loadData;
 // Función para buscar datos por nombre en Google Sheets
 function searchData() {
     const searchTerm = document.getElementById('searchTerm').value.trim().toLowerCase();
@@ -76,8 +74,13 @@ function searchData() {
         .then(data => {
             dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
             data.forEach((row, index) => {
-                const nombre = row[0].toLowerCase();
-                if (nombre.includes(searchTerm)) {
+                let found = false;
+                row.forEach(cell => {
+                    if (cell.toLowerCase().includes(searchTerm)) {
+                        found = true;
+                    }
+                });
+                if (found) {
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <td>${index + 1}</td>
@@ -97,3 +100,12 @@ function searchData() {
             alert('Ocurrió un error al buscar datos. Por favor, intenta nuevamente.');
         });
 }
+
+// Función para limpiar el filtro y mostrar todos los datos
+function clearFilter() {
+    document.getElementById('searchTerm').value = ''; // Limpiar el campo de búsqueda
+    loadData(); // Volver a cargar todos los datos
+}
+
+// Cargar los datos cuando se carga la página
+window.onload = loadData;
