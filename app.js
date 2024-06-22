@@ -1,11 +1,11 @@
 const form = document.getElementById('dataForm');
 const dataTable = document.getElementById('dataTable');
-const apiUrl = 'https://script.google.com/macros/s/AKfycbwoB7FCDLTdCUgW6lb2Nf8XMtcdXMZ17sYCmCXTv5f6zBiBtygKPnoX7M3o10j2nHPA/exec';
+const apiUrl = 'https://script.google.com/macros/s/AKfycbxuN73mNTFjcNAlC62wH_Ob-zYnxPhOkMokJMWxCGBU-ddE1UJ3HRMcp7CHqM-5hwtf/exec';
 
 // Función para cargar todos los datos desde Google Sheets
 function loadData() {
     fetch(`${apiUrl}?action=read`)
-        .then(codMateria => codMateria.json())
+        .then(response => response.json())
         .then(data => {
             dataTable.innerHTML = ''; // Limpiar la tabla antes de cargar nuevos datos
             data.forEach((row, index) => {
@@ -17,10 +17,10 @@ function loadData() {
                     <td>${row[2]}</td>
                     <td>${row[3]}</td>
                     <td>
-                        <button class="btn btn-warning btn-sm" onclick="editRow(${index + 1}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
+                        <button class="btn btn-warning btn-sm" onclick="editRow(${index}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')">
                             <i class="bi bi-pencil"></i> Editar
                         </button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteRow(${index + 1})">
+                        <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})">
                             <i class="bi bi-trash"></i> Eliminar
                         </button>
                     </td>
@@ -56,13 +56,13 @@ form.addEventListener('submit', function (event) {
 });
 
 // Función para editar una fila
-function editRow(id, facultad, codMateria, materia, bibliografia) {
+function editRow(index, facultad, codMateria, materia, bibliografia) {
     const newFacultad = prompt("Nueva Facultad:", facultad);
     const newCodMateria = prompt("Nuevo Código de Materia:", codMateria);
     const newMateria = prompt("Nueva Materia:", materia);
     const newBibliografia = prompt("Nueva Bibliografía:", bibliografia);
     if (newFacultad !== null && newCodMateria !== null && newMateria !== null && newBibliografia !== null) {
-        fetch(`${apiUrl}?action=update&id=${id}&facultad=${newFacultad}&codMateria=${newCodMateria}&materia=${newMateria}&bibliografia=${newBibliografia}`)
+        fetch(`${apiUrl}?action=update&id=${index}&facultad=${newFacultad}&codMateria=${newCodMateria}&materia=${newMateria}&bibliografia=${newBibliografia}`)
             .then(response => response.text())
             .then(data => {
                 alert(data);
@@ -76,9 +76,9 @@ function editRow(id, facultad, codMateria, materia, bibliografia) {
 }
 
 // Función para eliminar una fila
-function deleteRow(id) {
+function deleteRow(index) {
     if (confirm("¿Estás seguro de que quieres eliminar este registro?")) {
-        fetch(`${apiUrl}?action=delete&id=${id}`)
+        fetch(`${apiUrl}?action=delete&id=${index}`)
             .then(response => response.text())
             .then(data => {
                 alert(data);
@@ -90,7 +90,6 @@ function deleteRow(id) {
             });
     }
 }
-
 // Función para buscar datos por cualquier columna en Google Sheets
 function searchData() {
     const searchTerm = document.getElementById('searchTerm').value.trim().toLowerCase();
