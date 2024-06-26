@@ -1,4 +1,4 @@
-const apiUrl = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+const apiUrl = 'https://script.google.com/macros/s/AKfycbymY6vaQjcV6H2dXBuEuf8S8--JGTVgMK-FfsaSkLlZ4b-Wd8CgHH1-6Wfe6OTN0jA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('facultadForm').addEventListener('submit', e => {
