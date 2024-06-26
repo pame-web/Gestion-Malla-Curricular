@@ -1,6 +1,7 @@
-const apiUrl = 'https://script.google.com/macros/s/AKfycbymY6vaQjcV6H2dXBuEuf8S8--JGTVgMK-FfsaSkLlZ4b-Wd8CgHH1-6Wfe6OTN0jA/exec';
+const apiUrl = 'https://script.google.com/macros/s/AKfycbye_nWJJ65EtRCZSA6YaKkntbcSy_hBx_DDV8rf3WeaEwcrhbwM28vgbCrSijfvbJTc/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Manejo de eventos de envío de formulario para cada sección
     document.getElementById('facultadForm').addEventListener('submit', e => {
         e.preventDefault();
         createData('Facultad', {
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('materialForm').addEventListener('submit', e => {
         e.preventDefault();
         createData('Material', {
+            id: document.getElementById('materialId').value,
             edicion: document.getElementById('edicion').value,
             autor: document.getElementById('autor').value,
             fecha: document.getElementById('fecha').value,
@@ -30,11 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Cargar datos iniciales
     loadData('Facultad');
     loadData('Materia');
     loadData('Material');
+
+    // Manejo del menú de navegación
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            showSection(link.getAttribute('href').substring(1));
+        });
+    });
+
+    // Mostrar la primera sección por defecto
+    showSection('facultad');
 });
 
+// Función para crear datos
 function createData(sheet, data) {
     let url = `${apiUrl}?action=create&sheet=${sheet}`;
     Object.keys(data).forEach(key => {
@@ -49,6 +64,7 @@ function createData(sheet, data) {
         .catch(error => console.error('Error al agregar datos:', error));
 }
 
+// Función para cargar datos
 function loadData(sheet) {
     fetch(`${apiUrl}?action=read&sheet=${sheet}`)
         .then(response => response.json())
@@ -82,8 +98,9 @@ function loadData(sheet) {
                         <td>${row[1]}</td>
                         <td>${row[2]}</td>
                         <td>${row[3]}</td>
+                        <td>${row[4]}</td>
                         <td>
-                            <button class="btn btn-warning btn-sm" onclick="editData('${sheet}', ${index}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')"><i class="bi bi-pencil"></i> Editar</button>
+                            <button class="btn btn-warning btn-sm" onclick="editData('${sheet}', ${index}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}', '${row[4]}')"><i class="bi bi-pencil"></i> Editar</button>
                             <button class="btn btn-danger btn-sm" onclick="deleteData('${sheet}', ${index})"><i class="bi bi-trash"></i> Eliminar</button>
                         </td>`;
                 }
@@ -93,30 +110,39 @@ function loadData(sheet) {
         .catch(error => console.error('Error al cargar datos:', error));
 }
 
+// Función para editar datos
 function editData(sheet, index, ...args) {
-    let newData;
+    const data = {};
     if (sheet === 'Facultad') {
-        newData = prompt("Nueva Facultad:", args.join(',')).split(',');
+        data.id = args[0];
+        data.codigo_facultad = args[1];
+        data.descripcion_facultad = args[2];
     } else if (sheet === 'Materia') {
-        newData = prompt("Nueva Materia:", args.join(',')).split(',');
+        data.id = args[0];
+        data.cod_materia = args[1];
+        data.descripcion = args[2];
+        data.credito = args[3];
     } else if (sheet === 'Material') {
-        newData = prompt("Nuevo Material:", args.join(',')).split(',');
+        data.id = args[0];
+        data.edicion = args[1];
+        data.autor = args[2];
+        data.fecha = args[3];
+        data.descripcion = args[4];
     }
-    if (newData) {
-        let url = `${apiUrl}?action=update&sheet=${sheet}&id=${index + 1}`;
-        newData.forEach((value, idx) => {
-            url += `&${Object.keys(args)[idx]}=${encodeURIComponent(value)}`;
-        });
-        fetch(url)
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                loadData(sheet);
-            })
-            .catch(error => console.error('Error al editar datos:', error));
-    }
+    let url = `${apiUrl}?action=update&sheet=${sheet}&id=${data.id}`;
+    Object.keys(data).forEach(key => {
+        url += `&${key}=${encodeURIComponent(data[key])}`;
+    });
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            loadData(sheet);
+        })
+        .catch(error => console.error('Error al editar datos:', error));
 }
 
+// Función para eliminar datos
 function deleteData(sheet, index) {
     if (confirm("¿Estás seguro de que quieres eliminar este registro?")) {
         fetch(`${apiUrl}?action=delete&sheet=${sheet}&id=${index + 1}`)
@@ -129,6 +155,7 @@ function deleteData(sheet, index) {
     }
 }
 
+// Función para mostrar secciones
 function showSection(section) {
     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
     document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
