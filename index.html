@@ -4,62 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Datos con Google Sheets</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        form { margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
+        .hidden { display: none; }
+        .active { display: block; }
     </style>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <h1>Software Gestión de la Bibliografía de las Materias</h1>
-            </div>
+        <h1>Gestión de Bibliografía</h1>
+        <nav>
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" href="#" onclick="showSection('facultad')">Facultad</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('materia')">Materia</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('material')">Material</a></li>
+            </ul>
+        </nav>
+
+        <!-- Sección Facultad -->
+        <div id="facultad" class="active">
+            <h2>Facultad</h2>
+            <form id="facultadForm">
+                <input type="text" id="facultadId" placeholder="ID" required class="form-control mb-2">
+                <input type="text" id="codigoFacultad" placeholder="Código Facultad" required class="form-control mb-2">
+                <input type="text" id="descripcionFacultad" placeholder="Descripción Facultad" required class="form-control mb-2">
+                <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar</button>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código Facultad</th>
+                        <th>Descripción Facultad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="facultadTable"></tbody>
+            </table>
+        </div>
+
+        <!-- Sección Materia -->
+        <div id="materia" class="hidden">
+            <h2>Materia</h2>
+            <form id="materiaForm">
+                <input type="text" id="materiaId" placeholder="ID" required class="form-control mb-2">
+                <input type="text" id="codigoMateria" placeholder="Código Materia" required class="form-control mb-2">
+                <input type="text" id="descripcionMateria" placeholder="Descripción" required class="form-control mb-2">
+                <input type="text" id="credito" placeholder="Crédito" required class="form-control mb-2">
+                <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar</button>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código Materia</th>
+                        <th>Descripción</th>
+                        <th>Crédito</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="materiaTable"></tbody>
+            </table>
+        </div>
+
+        <!-- Sección Material -->
+        <div id="material" class="hidden">
+            <h2>Material</h2>
+            <form id="materialForm">
+                <input type="text" id="edicion" placeholder="Edición" required class="form-control mb-2">
+                <input type="text" id="autor" placeholder="Autor" required class="form-control mb-2">
+                <input type="date" id="fecha" placeholder="Fecha" required class="form-control mb-2">
+                <input type="text" id="descripcionMaterial" placeholder="Descripción" required class="form-control mb-2">
+                <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar</button>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Edición</th>
+                        <th>Autor</th>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="materialTable"></tbody>
+            </table>
         </div>
     </div>
-    <form id="dataForm">
-        <input type="text" id="facultad" placeholder="Facultad" required class="form-control mb-2">
-        <input type="text" id="codMateria" placeholder="Código de Materia" required class="form-control mb-2">
-        <input type="text" id="materia" placeholder="Materia" required class="form-control mb-2">
-        <input type="text" id="bibliografia" placeholder="Bibliografía" required class="form-control mb-2">
-        <button type="submit" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Agregar
-        </button>
-    </form>
-
-    <form id="searchForm" class="mt-3">
-        <input type="text" id="searchTerm" placeholder="Busque aqui" class="form-control mb-2">
-        <button type="button" class="btn btn-primary" onclick="searchData()">
-            <i class="bi bi-search"></i> Buscar
-        </button>
-        <button type="button" class="btn btn-warning" onclick="clearFilter()">
-            <i class="bi bi-slash-circle"></i> Limpiar
-        </button>
-    </form>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Facultad</th>
-                <th>Código de Materia</th>
-                <th>Materia</th>
-                <th>Bibliografía</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="dataTable">
-            <!-- Aquí se añadirán las filas de datos -->
-        </tbody>
-    </table>
-
     <script src="app.js"></script>
 </body>
 </html>
