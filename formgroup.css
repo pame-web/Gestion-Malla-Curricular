@@ -1,0 +1,43 @@
+/* Estilos para form-group */
+.form-group {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 200px; /* Ajusta el ancho según sea necesario */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.mb-2 {
+  margin-bottom: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #87CEEB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #00BFFF;
+}
+
+.mensaje-exito {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+  display: none;
+}
