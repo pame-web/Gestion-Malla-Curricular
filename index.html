@@ -1,119 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software de Gestión de Bibliografía</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .hidden { display: none; }
-        .active { display: block; }
-        #mainTitle { text-align: center; } /* Estilo para centrar el título */
-        .nav-tabs .nav-link {
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            width: auto; /* Ancho automático para ajustarse al contenido */
-            text-align: center; /* Centra el texto dentro de los botones */
-        }
-        .nav-tabs .nav-link.active {
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión Malla Curricular</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" id="mainContent">
-        <h1 id="mainTitle">Software de Gestión de Bibliografía</h1>
-
-        <nav>
-            <div class="nav nav-tabs">
-                <button class="nav-link active btn btn-link" onclick="showSection('paginaPrincipal')">Home</button>
-                <button class="nav-link btn btn-link" onclick="showSection('facultad')">Facultad</button>
-                <button class="nav-link btn btn-link" onclick="showSection('materia')">Materia</button>
-                <button class="nav-link btn btn-link" onclick="showSection('material')">Material</button>
-            </div>
-        </nav>
-
-        <!-- Sección Facultad -->
-        <div id="facultad" class="hidden">
-            <h2>Facultad</h2>
-            <form id="facultadForm">
-                <input type="text" id="facultadId" placeholder="ID" required class="form-control mb-2">
-                <input type="text" id="codigoFacultad" placeholder="Código Facultad" required class="form-control mb-2">
-                <input type="text" id="descripcionFacultad" placeholder="Descripción Facultad" required class="form-control mb-2">
-                <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar</button>
-            </form>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Código Facultad</th>
-                        <th>Descripción Facultad</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="facultadTable"></tbody>
-            </table>
-        </div>
-
-        <!-- Sección Materia -->
-        <div id="materia" class="hidden">
-            <h2>Materia</h2>
-            <form id="materiaForm">
-                <input type="text" id="materiaId" placeholder="ID" required class="form-control mb-2">
-                <input type="text" id="codigoMateria" placeholder="Código Materia" required class="form-control mb-2">
-                <input type="text" id="descripcionMateria" placeholder="Descripción" required class="form-control mb-2">
-                <input type="text" id="credito" placeholder="Crédito" required class="form-control mb-2">
-                <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar</button>
-            </form>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Código Materia</th>
-                        <th>Descripción</th>
-                        <th>Crédito</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="materiaTable"></tbody>
-            </table>
-        </div>
-
-        <!-- Sección Material -->
-        <div id="material" class="hidden">
-            <h2>Material</h2>
-            <form id="materialForm">
-                <input type="text" id="edicion" placeholder="Edición" required class="form-control mb-2">
-                <input type="text" id="autor" placeholder="Autor" required class="form-control mb-2">
-                <input type="date" id="fecha" placeholder="Fecha" required class="form-control mb-2">
-                <input type="text" id="descripcionMaterial" placeholder="Descripción" required class="form-control mb-2">
-                <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar</button>
-            </form>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Edición</th>
-                        <th>Autor</th>
-                        <th>Fecha</th>
-                        <th>Descripción</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="materialTable"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <script>
-        // Centrar el título usando JavaScript
-        const titleElement = document.getElementById('mainTitle');
-        titleElement.style.textAlign = 'center';
-    </script>
-
-    <script src="app.js"></script>
+  <div id="header">
+    <img src="https://drive.google.com/file/d/1OUNDYeIMNbZiGgZyCf60GufVZcF6t__e/view?usp=drive_link" alt="Logo">
+    <h1>Menú</h1>
+    <h2>Gestión Malla Curricular</h2>
+  </div>
+          
+  <div class="menu">
+    <a href="alta.html"><button>Alta</button></a>
+    <a href="baja.html"><button>Baja</button></a>
+    <a href="modificacion.html"><button>Modificación</button></a>
+    <a href="consulta.html"><button>Consulta</button></a>
+  </div>
 </body>
 </html>
