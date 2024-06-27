@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title class="text-center">Software de Gestión de Bibliografía</title>
+    <title>Software de Gestión de Bibliografía</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
@@ -13,8 +13,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center">Software de Gestión de Bibliografía</h1>
+    <div class="container" id="mainContent">
+        <h1 id="mainTitle">Software de Gestión de Bibliografía</h1>
         <nav>
             <ul class="nav nav-tabs">
                 <li class="nav-item"><button class="nav-link active" href="#" onclick="showSection('paginaPrincipal')">Home</button></li>
@@ -23,7 +23,11 @@
                 <li class="nav-item"><button class="nav-link btn btn-link" onclick="showSection('material')">Material</button></li>
             </ul>
         </nav>
-
+  <script>
+        // Centrar el título usando JavaScript
+        const titleElement = document.getElementById('mainTitle');
+        titleElement.style.textAlign = 'center';
+    </script>
         <!-- Sección Facultad -->
         <div id="facultad" class="hidden">
             <h2>Facultad</h2>
