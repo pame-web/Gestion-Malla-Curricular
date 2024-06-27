@@ -16,7 +16,6 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-  align-items: center; /* Centra horizontalmente los elementos */
   text-align: center; /* Centra el texto dentro del input */
   margin-bottom: 5px; /* Espacio entre inputs */
 }
