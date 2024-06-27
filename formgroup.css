@@ -1,8 +1,9 @@
+/* Estilos para form-group */
 .form-group {
   display: flex;
   flex-direction: column;
   align-items: center; /* Centra horizontalmente los elementos */
-  margin-bottom: 07px; /* Espacio entre grupos */
+  margin-bottom: 10px; /* Espacio entre grupos */
 }
 
 .form-group label {
@@ -20,6 +21,15 @@
   margin-bottom: 5px; /* Espacio entre inputs */
 }
 
+.btn {
+  padding: 10px 20px;
+  background-color: #87CEEB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
 .mb-2 {
   margin-bottom: 20px;
 }
