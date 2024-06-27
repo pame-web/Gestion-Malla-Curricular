@@ -11,6 +11,17 @@
         .hidden { display: none; }
         .active { display: block; }
         #mainTitle { text-align: center; } /* Estilo para centrar el título */
+        .nav-tabs .nav-link {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            width: auto; /* Ancho automático para ajustarse al contenido */
+            text-align: center; /* Centra el texto dentro de los botones */
+        }
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -18,10 +29,12 @@
         <h1 id="mainTitle">Software de Gestión de Bibliografía</h1>
 
         <nav>
-                    <button class="nav-link active btn btn-link" onclick="showSection('paginaPrincipal')">Home</button>
-                    <button class="nav-link btn btn-link" onclick="showSection('facultad')">Facultad</button>
-                    <button class="nav-link btn btn-link" onclick="showSection('materia')">Materia</button>
-                    <button class="nav-link btn btn-link" onclick="showSection('material')">Material</button>
+            <div class="nav nav-tabs">
+                <button class="nav-link active btn btn-link" onclick="showSection('paginaPrincipal')">Home</button>
+                <button class="nav-link btn btn-link" onclick="showSection('facultad')">Facultad</button>
+                <button class="nav-link btn btn-link" onclick="showSection('materia')">Materia</button>
+                <button class="nav-link btn btn-link" onclick="showSection('material')">Material</button>
+            </div>
         </nav>
 
         <!-- Sección Facultad -->
