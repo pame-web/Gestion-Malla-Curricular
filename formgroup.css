@@ -7,6 +7,7 @@
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold; /* Añade negrita al texto de las etiquetas */
 }
 
 .form-control {
@@ -40,4 +41,44 @@
   font-weight: bold;
   margin-top: 10px;
   display: none;
+}
+
+/* Estilos para encabezado */
+#header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#header img {
+  width: 100px;
+  height: auto;
+}
+
+#header h1 {
+  margin: 10px 0;
+  font-size: 24px;
+}
+
+#header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #555;
+}
+
+/* Estilos para el botón Volver a Inicio */
+#btnInicio {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #98FB98; /* Verde claro */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#btnInicio:hover {
+  background-color: #8FBC8F; /* Verde más oscuro al pasar el mouse */
 }
