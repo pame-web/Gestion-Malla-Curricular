@@ -1,25 +1,25 @@
 /* Estilos para form-group */
 .form-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centra horizontalmente los elementos */
-  margin-bottom: 10px; /* Espacio entre grupos */
+  display: inline-block;
+  margin-right: 10px;
+  text-align: center; /* Centrar texto y campos */
 }
 
 .form-group label {
-  margin-bottom: 2px;
+  display: block;
+  margin-bottom: 5px;
   font-weight: bold; /* Añade negrita al texto de las etiquetas */
 }
 
 .form-control {
-  width: 100%; /* O ajusta el ancho según tus necesidades */
+  width: 200px; /* Ajusta el ancho según sea necesario */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-  text-align: center; /* Centra el texto dentro del input */
-  margin-bottom: 5px; /* Espacio entre inputs */
+  text-align: center; /* Centrar el texto dentro de los inputs */
 }
+
 
 .btn {
   padding: 10px 20px;
