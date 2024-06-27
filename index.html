@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Datos con Google Sheets</title>
+    <title>Software de Gestión de Bibliografía</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
@@ -14,28 +14,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Gestión de Bibliografía</h1>
+        <h1 class="text-center">Software de Gestión de Bibliografía</h1>
         <nav>
             <ul class="nav nav-tabs">
                 <li class="nav-item"><a class="nav-link active" href="#" onclick="showSection('paginaPrincipal')">Home</a></li>
+                <li class="nav-item"><button class="nav-link btn btn-link" onclick="showSection('facultad')">Facultad</button></li>
+                <li class="nav-item"><button class="nav-link btn btn-link" onclick="showSection('materia')">Materia</button></li>
+                <li class="nav-item"><button class="nav-link btn btn-link" onclick="showSection('material')">Material</button></li>
             </ul>
         </nav>
-
-        <!-- Página Principal con Botones -->
-        <div id="paginaPrincipal" class="active">
-            <h2>Menú Principal</h2>
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-primary btn-lg" onclick="showSection('facultad')">Facultad</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-primary btn-lg" onclick="showSection('materia')">Materia</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-primary btn-lg" onclick="showSection('material')">Material</button>
-                </div>
-            </div>
-        </div>
 
         <!-- Sección Facultad -->
         <div id="facultad" class="hidden">
