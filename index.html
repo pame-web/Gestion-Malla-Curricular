@@ -17,14 +17,31 @@
         <h1>Gestión de Bibliografía</h1>
         <nav>
             <ul class="nav nav-tabs">
-                <li class="nav-item"><a class="nav-link active" href="#" onclick="showSection('facultad')">Facultad</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#" onclick="showSection('paginaPrincipal')">Página Principal</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('facultad')">Facultad</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('materia')">Materia</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('material')">Material</a></li>
             </ul>
         </nav>
 
+        <!-- Página Principal con Botones -->
+        <div id="paginaPrincipal" class="active">
+            <h2>Menú Principal</h2>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary btn-lg" onclick="showSection('facultad')">Facultad</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary btn-lg" onclick="showSection('materia')">Materia</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary btn-lg" onclick="showSection('material')">Material</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Sección Facultad -->
-        <div id="facultad" class="active">
+        <div id="facultad" class="hidden">
             <h2>Facultad</h2>
             <form id="facultadForm">
                 <input type="text" id="facultadId" placeholder="ID" required class="form-control mb-2">
@@ -73,7 +90,6 @@
         <div id="material" class="hidden">
             <h2>Material</h2>
             <form id="materialForm">
-                <input type="text" id="materialId" placeholder="ID" required class="form-control mb-2">
                 <input type="text" id="edicion" placeholder="Edición" required class="form-control mb-2">
                 <input type="text" id="autor" placeholder="Autor" required class="form-control mb-2">
                 <input type="date" id="fecha" placeholder="Fecha" required class="form-control mb-2">
@@ -83,7 +99,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Edición</th>
                         <th>Autor</th>
                         <th>Fecha</th>
