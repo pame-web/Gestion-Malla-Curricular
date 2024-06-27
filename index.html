@@ -10,14 +10,12 @@
         body { font-family: Arial, sans-serif; margin: 20px; }
         .hidden { display: none; }
         .active { display: block; }
+        #mainTitle { text-align: center; } /* Estilo para centrar el título */
     </style>
 </head>
 <body>
     <div class="container" id="mainContent">
         <h1 id="mainTitle">Software de Gestión de Bibliografía</h1>
-<body>
-    <div class="container">
-        <h1 class="text-center">Software de Gestión de Bibliografía</h1>
 
         <nav>
             <ul class="nav nav-tabs">
@@ -35,11 +33,7 @@
                 </li>
             </ul>
         </nav>
-  <script>
-        // Centrar el título usando JavaScript
-        const titleElement = document.getElementById('mainTitle');
-        titleElement.style.textAlign = 'center';
-    </script>
+
         <!-- Sección Facultad -->
         <div id="facultad" class="hidden">
             <h2>Facultad</h2>
@@ -110,6 +104,13 @@
             </table>
         </div>
     </div>
+
+    <script>
+        // Centrar el título usando JavaScript
+        const titleElement = document.getElementById('mainTitle');
+        titleElement.style.textAlign = 'center';
+    </script>
+
     <script src="app.js"></script>
 </body>
 </html>
