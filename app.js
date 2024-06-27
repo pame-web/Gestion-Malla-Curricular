@@ -4,32 +4,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // Manejo de eventos de envío de formulario para cada sección
     document.getElementById('facultadForm').addEventListener('submit', e => {
         e.preventDefault();
-        createData('Facultad', {
+        const formData = {
             id: document.getElementById('facultadId').value,
             codigo_facultad: document.getElementById('codigoFacultad').value,
             descripcion_facultad: document.getElementById('descripcionFacultad').value
-        });
+        };
+        createData('Facultad', formData);
     });
 
     document.getElementById('materiaForm').addEventListener('submit', e => {
         e.preventDefault();
-        createData('Materia', {
+        const formData = {
             id: document.getElementById('materiaId').value,
             cod_materia: document.getElementById('codigoMateria').value,
             descripcion: document.getElementById('descripcionMateria').value,
             credito: document.getElementById('credito').value
-        });
+        };
+        createData('Materia', formData);
     });
 
     document.getElementById('materialForm').addEventListener('submit', e => {
         e.preventDefault();
-        createData('Material', {
+        const formData = {
             id: document.getElementById('materialId').value,
             edicion: document.getElementById('edicion').value,
             autor: document.getElementById('autor').value,
             fecha: document.getElementById('fecha').value,
             descripcion: document.getElementById('descripcionMaterial').value
-        });
+        };
+        createData('Material', formData);
     });
 
     // Cargar datos iniciales
@@ -41,7 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            showSection(link.getAttribute('href').substring(1));
+            const section = link.getAttribute('href').substring(1);
+            showSection(section);
+            if (section !== 'paginaPrincipal') {
+                loadData(section);
+            }
         });
     });
 
@@ -160,5 +167,15 @@ function showSection(section) {
     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
     document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
     document.querySelector(`#${section}`).classList.remove('hidden');
-    document.querySelector(`.nav-link[href*="${section}"]`).classList.add('active');
+    document.querySelector(`.nav-link[href="#${section}"]`).classList.add('active');
+
+    // Si se selecciona la página principal, mostrar el div 'paginaPrincipal' y ocultar las secciones individuales
+    if (section === 'paginaPrincipal') {
+        document.getElementById('paginaPrincipal').classList.remove('hidden');
+        document.getElementById('facultad').classList.add('hidden');
+        document.getElementById('materia').classList.add('hidden');
+        document.getElementById('material').classList.add('hidden');
+    } else {
+        document.getElementById('paginaPrincipal').classList.add('hidden');
+    }
 }
