@@ -59,4 +59,49 @@
     <p id="mensaje" class="mensaje-exito" style="display: none;">Registro eliminado correctamente</p>
   </div>
 
- 
+ <script>
+    // URL de tu Apps Script desplegado como API
+    const API_URL = 'URL_DE_TU_API_DE_APPS_SCRIPT';
+
+    document.getElementById('altaForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Obtener valores de los campos
+      const facultad = document.getElementById('facultad').value;
+      const carrera = document.getElementById('carrera').value;
+      const materia = document.getElementById('materia').value;
+      const material = document.getElementById('material').value;
+
+      // Crear objeto de registro
+      const registro = {
+        facultad,
+        carrera,
+        materia,
+        material
+      };
+
+      // Enviar datos a la API de Apps Script
+      fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(registro)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result === 'success') {
+          document.getElementById('mensaje').style.display = 'block';
+          document.getElementById('altaForm').reset();
+        } else {
+          alert('Error al guardar el registro.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error de conexión.');
+      });
+    });
+  </script>
+</body>
+</html>
