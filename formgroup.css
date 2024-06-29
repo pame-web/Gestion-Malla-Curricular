@@ -1,7 +1,7 @@
 /* Estilos para formulario */
     #FacultadForm {
       width: 300px; /* Ajusta el ancho del formulario */
-      float: right; /* Alinea a la derecha */
+      float: left; /* Alinea a la derecha */
       margin-right: 20px; /* Espaciado desde el borde derecho */
       border: 1px solid #ccc; /* Borde opcional para visibilidad */
       padding: 15px; /* Espaciado interno */
