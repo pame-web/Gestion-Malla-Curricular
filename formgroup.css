@@ -1,7 +1,7 @@
 /* Estilos para formulario */
 #FacultadForm {
   width: 380px; /* Ajusta el ancho del formulario */
-  margin: 20px auto; /* Centra el formulario horizontalmente y agrega espacio superior */
+  margin: 40px auto; /* Centra el formulario horizontalmente y agrega espacio superior */
   border: 1px solid #ccc; /* Borde opcional para visibilidad */
   padding: 18px; /* Espaciado interno */
   background-color: #f9f9f9; /* Color de fondo opcional */
