@@ -1,11 +1,11 @@
 /* Estilos para formulario */
 #FacultadForm {
-  width: 300px; /* Ajusta el ancho del formulario */
+  width: 380px; /* Ajusta el ancho del formulario */
   margin: 0 auto; /* Centra el formulario horizontalmente */
   border: 1px solid #ccc; /* Borde opcional para visibilidad */
-  padding: 15px; /* Espaciado interno */
+  padding: 18px; /* Espaciado interno */
   background-color: #f9f9f9; /* Color de fondo opcional */
-  border-radius: 5px; /* Bordes redondeados */
+  border-radius: 8px; /* Bordes redondeados */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra opcional */
 }
 
@@ -17,7 +17,7 @@
 /* Estilos para las etiquetas */
 .form-group label {
   display: block; /* Bloque completo para etiquetas */
-  margin-bottom: 5px; /* Espaciado inferior de la etiqueta */
+  margin-bottom: 7px; /* Espaciado inferior de la etiqueta */
 }
 
 /* Estilos para los campos de entrada */
