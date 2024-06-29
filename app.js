@@ -58,16 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Función para crear datos
-function createData(data) {
-    let url = `${apiUrl}?action=create`;
-    Object.keys(data).forEach(key => {
-        url += `&${key}=${encodeURIComponent(data[key])}`;
+function createData(sheet, data) {
+    let url = `${apiUrl}?action=create&sheet=${sheet}`;
+    // Remover el campo 'id' del objeto 'data'
+    const { id, ...rest } = data;
+    Object.keys(rest).forEach(key => {
+        url += `&${key}=${encodeURIComponent(rest[key])}`;
     });
     fetch(url)
         .then(response => response.text())
         .then(data => {
             alert(data);
-            loadData(data.tipo);
+            loadData(sheet);
         })
         .catch(error => console.error('Error al agregar datos:', error));
 }
