@@ -1,7 +1,7 @@
 /* Estilos para formulario */
 #FacultadForm {
   width: 380px; /* Ajusta el ancho del formulario */
-  margin: 35px auto; /* Centra el formulario horizontalmente y agrega espacio superior */
+  margin: 20px auto; /* Centra el formulario horizontalmente y agrega espacio superior */
   border: 1px solid #ccc; /* Borde opcional para visibilidad */
   padding: 18px; /* Espaciado interno */
   background-color: #f9f9f9; /* Color de fondo opcional */
@@ -32,6 +32,7 @@
 /* Estilos para los botones */
 .button-group {
   display: flex; /* Uso de flexbox para la alineación horizontal */
+  justify-content: center; /* Centra los botones */
   gap: 10px; /* Espacio entre botones */
   margin-top: 15px; /* Espaciado superior para separar de los campos */
 }
@@ -42,8 +43,8 @@
   justify-content: center;
   padding: 10px 20px; /* Ajuste de espacio interno */
   font-size: 14px; /* Ajuste de tamaño de texto */
-  background-color: grey; /* Color de fondo */
-  color: black; /* Color del texto */
+  background-color: #28a745; /* Color de fondo */
+  color: white; /* Color del texto */
   border: none; /* Sin bordes */
   border-radius: 5px; /* Bordes redondeados */
   text-decoration: none; /* Sin subrayado */
@@ -52,6 +53,8 @@
 
 .button-group .btn svg {
   margin-right: 5px; /* Espacio entre el ícono y el texto */
+  width: 16px; /* Ajuste de ancho del ícono */
+  height: 16px; /* Ajuste de alto del ícono */
 }
 
 .button-group .btn:hover {
