@@ -1,14 +1,22 @@
 /* Estilos para form-group */
 .form-group {
-  display: inline-block;
+  display: block;
   margin-right: 10px;
   text-align: center; /* Centrar texto y campos */
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.form-group label {
+.form-group label, 
+.form-group input {
+  width: 100%;
   display: block;
   margin-bottom: 5px;
   font-weight: bold; /* Añade negrita al texto de las etiquetas */
+}
+.form-group input {
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .form-control {
