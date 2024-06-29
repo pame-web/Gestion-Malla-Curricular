@@ -3,13 +3,13 @@
   display: block;
   margin-right: 10px;
   text-align: center; /* Centrar texto y campos */
-  width: 100%;
+  width: 10%;
   margin-bottom: 10px;
 }
 
 .form-group label, 
 .form-group input {
-  width: 100%;
+  width: 10%;
   display: block;
   margin-bottom: 5px;
   font-weight: bold; /* Añade negrita al texto de las etiquetas */
@@ -127,3 +127,37 @@
 .nav-button:hover {
   background-color: #45a049; /* Color de fondo al pasar el ratón */
 }
+
+/* Estilos adicionales para asegurar el diseño horizontal */
+    .button-group {
+      display: flex;
+      gap: 10px; /* Espacio entre botones */
+      align-items: center;
+    }
+
+    .button-group .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px; /* Ajuste de espacio interno */
+      font-size: 14px; /* Ajuste de tamaño de texto */
+      background-color: #28a745; /* Color de fondo */
+      color: white; /* Color del texto */
+      border: none; /* Sin bordes */
+      border-radius: 5px; /* Bordes redondeados */
+      text-decoration: none; /* Sin subrayado */
+      cursor: pointer; /* Cambia el cursor al pasar por encima */
+    }
+
+    .button-group .btn svg {
+      margin-right: 5px; /* Espacio entre el ícono y el texto */
+    }
+
+    .button-group .btn:hover {
+      background-color: #218838; /* Color de fondo al pasar el ratón */
+    }
+
+    .mensaje-exito {
+      margin-top: 10px;
+      color: green;
+    }
