@@ -1,68 +1,68 @@
 /* Estilos para formulario */
-    #FacultadForm {
-      width: 300px; /* Ajusta el ancho del formulario */
-      float: left; /* Alinea a la derecha */
-      margin-right: 20px; /* Espaciado desde el borde derecho */
-      border: 1px solid #ccc; /* Borde opcional para visibilidad */
-      padding: 15px; /* Espaciado interno */
-      background-color: #f9f9f9; /* Color de fondo opcional */
-      border-radius: 5px; /* Bordes redondeados */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra opcional */
-    }
+#FacultadForm {
+  width: 300px; /* Ajusta el ancho del formulario */
+  margin: 0 auto; /* Centra el formulario horizontalmente */
+  border: 1px solid #ccc; /* Borde opcional para visibilidad */
+  padding: 15px; /* Espaciado interno */
+  background-color: #f9f9f9; /* Color de fondo opcional */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+}
 
-    /* Estilos para los grupos de formularios */
-    .form-group {
-      margin-bottom: 10px; /* Espaciado inferior entre campos */
-    }
+/* Estilos para los grupos de formularios */
+.form-group {
+  margin-bottom: 10px; /* Espaciado inferior entre campos */
+}
 
-    /* Estilos para las etiquetas */
-    .form-group label {
-      display: block; /* Bloque completo para etiquetas */
-      margin-bottom: 5px; /* Espaciado inferior de la etiqueta */
-    }
+/* Estilos para las etiquetas */
+.form-group label {
+  display: block; /* Bloque completo para etiquetas */
+  margin-bottom: 5px; /* Espaciado inferior de la etiqueta */
+}
 
-    /* Estilos para los campos de entrada */
-    .form-group input {
-      width: 100%; /* Ocupa todo el ancho disponible del contenedor */
-      padding: 10px; /* Espaciado interno */
-      box-sizing: border-box; /* Incluye padding en el ancho */
-      border: 1px solid #ccc; /* Borde del campo */
-      border-radius: 3px; /* Bordes redondeados */
-    }
+/* Estilos para los campos de entrada */
+.form-group input {
+  width: 100%; /* Ocupa todo el ancho disponible del contenedor */
+  padding: 10px; /* Espaciado interno */
+  box-sizing: border-box; /* Incluye padding en el ancho */
+  border: 1px solid #ccc; /* Borde del campo */
+  border-radius: 3px; /* Bordes redondeados */
+}
 
-    /* Estilos para los botones */
-    .button-group {
-      display: flex; /* Uso de flexbox para la alineación horizontal */
-      gap: 10px; /* Espacio entre botones */
-      margin-top: 15px; /* Espaciado superior para separar de los campos */
-    }
+/* Estilos para los botones */
+.button-group {
+  display: flex; /* Uso de flexbox para la alineación horizontal */
+  gap: 10px; /* Espacio entre botones */
+  margin-top: 15px; /* Espaciado superior para separar de los campos */
+}
 
-    .button-group .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 20px; /* Ajuste de espacio interno */
-      font-size: 14px; /* Ajuste de tamaño de texto */
-      background-color: #28a745; /* Color de fondo */
-      color: white; /* Color del texto */
-      border: none; /* Sin bordes */
-      border-radius: 5px; /* Bordes redondeados */
-      text-decoration: none; /* Sin subrayado */
-      cursor: pointer; /* Cambia el cursor al pasar por encima */
-    }
+.button-group .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px; /* Ajuste de espacio interno */
+  font-size: 14px; /* Ajuste de tamaño de texto */
+  background-color: #28a745; /* Color de fondo */
+  color: white; /* Color del texto */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  text-decoration: none; /* Sin subrayado */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
 
-    .button-group .btn svg {
-      margin-right: 5px; /* Espacio entre el ícono y el texto */
-    }
+.button-group .btn svg {
+  margin-right: 5px; /* Espacio entre el ícono y el texto */
+}
 
-    .button-group .btn:hover {
-      background-color: #218838; /* Color de fondo al pasar el ratón */
-    }
+.button-group .btn:hover {
+  background-color: #218838; /* Color de fondo al pasar el ratón */
+}
 
-    .mensaje-exito {
-      margin-top: 10px;
-      color: green;
-    }
+/* Mensaje de éxito */
+.mensaje-exito {
+  margin-top: 10px;
+  color: green;
+}
 
 
 
