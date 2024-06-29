@@ -6,33 +6,34 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const formData = {
             id: document.getElementById('facultadId').value,
-            codigo_facultad: document.getElementById('codigoFacultad').value,
-            descripcion_facultad: document.getElementById('descripcionFacultad').value
+            descripcion: document.getElementById('descripcionFacultad').value,
+            tipo: 'Facultad'
         };
-        createData('Facultad', formData);
+        createData(formData);
     });
 
     document.getElementById('materiaForm').addEventListener('submit', e => {
         e.preventDefault();
         const formData = {
             id: document.getElementById('materiaId').value,
-            cod_materia: document.getElementById('codigoMateria').value,
+            codigo: document.getElementById('codigoMateria').value,
             descripcion: document.getElementById('descripcionMateria').value,
-            credito: document.getElementById('credito').value
+            tipo: 'Materia'
         };
-        createData('Materia', formData);
+        createData(formData);
     });
 
     document.getElementById('materialForm').addEventListener('submit', e => {
         e.preventDefault();
         const formData = {
             id: document.getElementById('materialId').value,
-            edicion: document.getElementById('edicion').value,
-            autor: document.getElementById('autor').value,
-            fecha: document.getElementById('fecha').value,
-            descripcion: document.getElementById('descripcionMaterial').value
+            titulo: document.getElementById('tituloMaterial').value,
+            autor: document.getElementById('autorMaterial').value,
+            fecha: document.getElementById('fechaMaterial').value,
+            edicion: document.getElementById('edicionMaterial').value,
+            tipo: 'Material'
         };
-        createData('Material', formData);
+        createData(formData);
     });
 
     // Cargar datos iniciales
@@ -57,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Función para crear datos
-function createData(sheet, data) {
-    let url = `${apiUrl}?action=create&sheet=${sheet}`;
+function createData(data) {
+    let url = `${apiUrl}?action=create`;
     Object.keys(data).forEach(key => {
         url += `&${key}=${encodeURIComponent(data[key])}`;
     });
@@ -66,7 +67,7 @@ function createData(sheet, data) {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            loadData(sheet);
+            loadData(data.tipo);
         })
         .catch(error => console.error('Error al agregar datos:', error));
 }
@@ -77,42 +78,42 @@ function loadData(sheet) {
         .then(response => response.json())
         .then(data => {
             const tableBody = document.getElementById(`${sheet.toLowerCase()}Table`);
-            tableBody.innerHTML = '';
-            data.forEach((row, index) => {
-                const newRow = document.createElement('tr');
-                if (sheet === 'Facultad') {
-                    newRow.innerHTML = `
-                        <td>${row[0]}</td>
-                        <td>${row[1]}</td>
-                        <td>${row[2]}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="editData('${sheet}', ${index}, '${row[0]}', '${row[1]}', '${row[2]}')"><i class="bi bi-pencil"></i> Editar</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteData('${sheet}', ${index})"><i class="bi bi-trash"></i> Eliminar</button>
-                        </td>`;
-                } else if (sheet === 'Materia') {
-                    newRow.innerHTML = `
-                        <td>${row[0]}</td>
-                        <td>${row[1]}</td>
-                        <td>${row[2]}</td>
-                        <td>${row[3]}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="editData('${sheet}', ${index}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}')"><i class="bi bi-pencil"></i> Editar</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteData('${sheet}', ${index})"><i class="bi bi-trash"></i> Eliminar</button>
-                        </td>`;
-                } else if (sheet === 'Material') {
-                    newRow.innerHTML = `
-                        <td>${row[0]}</td>
-                        <td>${row[1]}</td>
-                        <td>${row[2]}</td>
-                        <td>${row[3]}</td>
-                        <td>${row[4]}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="editData('${sheet}', ${index}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}', '${row[4]}')"><i class="bi bi-pencil"></i> Editar</button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteData('${sheet}', ${index})"><i class="bi bi-trash"></i> Eliminar</button>
-                        </td>`;
-                }
-                tableBody.appendChild(newRow);
-            });
+            if (tableBody) {
+                tableBody.innerHTML = '';
+                data.forEach((row, index) => {
+                    const newRow = document.createElement('tr');
+                    if (sheet === 'Facultad') {
+                        newRow.innerHTML = `
+                            <td>${row[0]}</td>
+                            <td>${row[1]}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editData('${sheet}', ${index}, '${row[0]}', '${row[1]}')"><i class="bi bi-pencil"></i> Editar</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteData('${sheet}', ${index})"><i class="bi bi-trash"></i> Eliminar</button>
+                            </td>`;
+                    } else if (sheet === 'Materia') {
+                        newRow.innerHTML = `
+                            <td>${row[0]}</td>
+                            <td>${row[1]}</td>
+                            <td>${row[2]}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editData('${sheet}', ${index}, '${row[0]}', '${row[1]}', '${row[2]}')"><i class="bi bi-pencil"></i> Editar</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteData('${sheet}', ${index})"><i class="bi bi-trash"></i> Eliminar</button>
+                            </td>`;
+                    } else if (sheet === 'Material') {
+                        newRow.innerHTML = `
+                            <td>${row[0]}</td>
+                            <td>${row[1]}</td>
+                            <td>${row[2]}</td>
+                            <td>${row[3]}</td>
+                            <td>${row[4]}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editData('${sheet}', ${index}, '${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}', '${row[4]}')"><i class="bi bi-pencil"></i> Editar</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteData('${sheet}', ${index})"><i class="bi bi-trash"></i> Eliminar</button>
+                            </td>`;
+                    }
+                    tableBody.appendChild(newRow);
+                });
+            }
         })
         .catch(error => console.error('Error al cargar datos:', error));
 }
@@ -122,21 +123,22 @@ function editData(sheet, index, ...args) {
     const data = {};
     if (sheet === 'Facultad') {
         data.id = args[0];
-        data.codigo_facultad = args[1];
-        data.descripcion_facultad = args[2];
+        data.descripcion = args[1];
+        data.tipo = 'Facultad';
     } else if (sheet === 'Materia') {
         data.id = args[0];
-        data.cod_materia = args[1];
+        data.codigo = args[1];
         data.descripcion = args[2];
-        data.credito = args[3];
+        data.tipo = 'Materia';
     } else if (sheet === 'Material') {
         data.id = args[0];
-        data.edicion = args[1];
+        data.titulo = args[1];
         data.autor = args[2];
         data.fecha = args[3];
-        data.descripcion = args[4];
+        data.edicion = args[4];
+        data.tipo = 'Material';
     }
-    let url = `${apiUrl}?action=update&sheet=${sheet}&id=${data.id}`;
+    let url = `${apiUrl}?action=update`;
     Object.keys(data).forEach(key => {
         url += `&${key}=${encodeURIComponent(data[key])}`;
     });
@@ -144,7 +146,7 @@ function editData(sheet, index, ...args) {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            loadData(sheet);
+            loadData(data.tipo);
         })
         .catch(error => console.error('Error al editar datos:', error));
 }
