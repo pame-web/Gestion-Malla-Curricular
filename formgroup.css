@@ -42,7 +42,7 @@
   justify-content: center;
   padding: 10px 20px; /* Ajuste de espacio interno */
   font-size: 14px; /* Ajuste de tamaño de texto */
-  background-color: #28a745; /* Color de fondo */
+  background-color: grey; /* Color de fondo */
   color: white; /* Color del texto */
   border: none; /* Sin bordes */
   border-radius: 5px; /* Bordes redondeados */
