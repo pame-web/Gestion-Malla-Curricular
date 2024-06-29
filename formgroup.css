@@ -95,5 +95,27 @@
 
 #btnInicio:hover {
   background-color: #ddd; /* Gris más claro al pasar el mouse */
+}
 
+/* Agregar al final de formgroup.css */
+#nav-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.nav-button {
+  background-color: #4CAF50; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
+  margin: 5px; /* Espaciado entre botones */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  text-decoration: none; /* Sin subrayado */
+  font-size: 16px; /* Tamaño del texto */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.nav-button:hover {
+  background-color: #45a049; /* Color de fondo al pasar el ratón */
 }
