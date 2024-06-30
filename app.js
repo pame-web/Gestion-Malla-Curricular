@@ -1,4 +1,6 @@
-const apiUrl = 'https://script.google.com/macros/s/AKfycbye_nWJJ65EtRCZSA6YaKkntbcSy_hBx_DDV8rf3WeaEwcrhbwM28vgbCrSijfvbJTc/exec';
+const apiUrlFacultad = 'URL_PARA_FACULTAD';
+const apiUrlMateria = 'URL_PARA_MATERIA';
+const apiUrlMaterial = 'URL_PARA_MATERIAL';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Manejo de eventos de envío de formulario para cada sección
