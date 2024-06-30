@@ -1,6 +1,6 @@
-const apiUrlFacultad = 'URL_PARA_FACULTAD';
-const apiUrlMateria = 'URL_PARA_MATERIA';
-const apiUrlMaterial = 'URL_PARA_MATERIAL';
+const apiUrlFacultad = 'https://script.google.com/macros/s/AKfycbyKwEGktI5aw7elWMt-kGGiG5jl1ZZ7_hmRaW6U-p2b5J1xU9OGNQ_zXNV4l_Kd21YAHA/exec';
+const apiUrlMateria = 'https://script.google.com/macros/s/AKfycbx7kzzcjB7zG5P4KiOj3f-AbirchsQWI-zgryg3qb16VPyXmlJPY7x7APPrl2IyjB4hVw/exec';
+const apiUrlMaterial = 'https://script.google.com/macros/s/AKfycbyOpjo0uZD9EZYKyMDHukzqSfK0B2bk1bvJHc1NLBTuC1bi7eORi1U8QYsjtBJUFtsHyw/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Manejo de eventos de envío de formulario para cada sección
