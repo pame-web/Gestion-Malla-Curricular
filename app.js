@@ -4,70 +4,64 @@ const apiUrlMaterial = 'https://script.google.com/macros/s/AKfycbyOpjo0uZD9EZYKy
 
 document.addEventListener('DOMContentLoaded', () => {
     // Manejo de eventos de envío de formulario para cada sección
-    document.getElementById('facultadForm').addEventListener('submit', e => {
+    document.getElementById('FacultadForm').addEventListener('submit', e => {
         e.preventDefault();
         const formData = {
-            id: document.getElementById('facultadId').value,
-            descripcion: document.getElementById('descripcionFacultad').value,
+            id: document.getElementById('Id').value,
+            descripcion: document.getElementById('Descripción').value,
             tipo: 'Facultad'
         };
-        createData(formData);
+        createData('Facultad', formData);
     });
 
-    document.getElementById('materiaForm').addEventListener('submit', e => {
+    document.getElementById('MateriaForm').addEventListener('submit', e => {
         e.preventDefault();
         const formData = {
-            id: document.getElementById('materiaId').value,
-            codigo: document.getElementById('codigoMateria').value,
-            descripcion: document.getElementById('descripcionMateria').value,
+            id: document.getElementById('MateriaId').value,
+            codigo: document.getElementById('CodigoMateria').value,
+            descripcion: document.getElementById('DescripcionMateria').value,
             tipo: 'Materia'
         };
-        createData(formData);
+        createData('Materia', formData);
     });
 
-    document.getElementById('materialForm').addEventListener('submit', e => {
+    document.getElementById('MaterialForm').addEventListener('submit', e => {
         e.preventDefault();
         const formData = {
-            id: document.getElementById('materialId').value,
-            titulo: document.getElementById('tituloMaterial').value,
-            autor: document.getElementById('autorMaterial').value,
-            fecha: document.getElementById('fechaMaterial').value,
-            edicion: document.getElementById('edicionMaterial').value,
+            id: document.getElementById('MaterialId').value,
+            titulo: document.getElementById('TituloMaterial').value,
+            autor: document.getElementById('AutorMaterial').value,
+            fecha: document.getElementById('FechaMaterial').value,
+            edicion: document.getElementById('EdicionMaterial').value,
             tipo: 'Material'
         };
-        createData(formData);
+        createData('Material', formData);
     });
 
     // Cargar datos iniciales
     loadData('Facultad');
     loadData('Materia');
     loadData('Material');
-
-    // Manejo del menú de navegación
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const section = link.getAttribute('href').substring(1);
-            showSection(section);
-            if (section !== 'paginaPrincipal') {
-                loadData(section);
-            }
-        });
-    });
-
-    // Mostrar la primera sección por defecto
-    showSection('facultad');
 });
 
 // Función para crear datos
 function createData(sheet, data) {
-    let url = `${apiUrl}?action=create&sheet=${sheet}`;
-    // Remover el campo 'id' del objeto 'data'
-    const { id, ...rest } = data;
-    Object.keys(rest).forEach(key => {
-        url += `&${key}=${encodeURIComponent(rest[key])}`;
-    });
-    fetch(url)
+    let url = '';
+    if (sheet === 'Facultad') {
+        url = apiUrlFacultad;
+    } else if (sheet === 'Materia') {
+        url = apiUrlMateria;
+    } else if (sheet === 'Material') {
+        url = apiUrlMaterial;
+    }
+
+    fetch(`${url}?action=create&sheet=${sheet}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(data)
+    })
         .then(response => response.text())
         .then(data => {
             alert(data);
@@ -76,9 +70,80 @@ function createData(sheet, data) {
         .catch(error => console.error('Error al agregar datos:', error));
 }
 
+// Función para editar datos
+function editData(sheet, index, ...args) {
+    const data = {};
+    if (sheet === 'Facultad') {
+        data.id = args[0];
+        data.descripcion = args[1];
+    } else if (sheet === 'Materia') {
+        data.id = args[0];
+        data.codigo = args[1];
+        data.descripcion = args[2];
+    } else if (sheet === 'Material') {
+        data.id = args[0];
+        data.titulo = args[1];
+        data.autor = args[2];
+        data.fecha = args[3];
+        data.edicion = args[4];
+    }
+
+    let url = '';
+    if (sheet === 'Facultad') {
+        url = `${apiUrlFacultad}?action=update`;
+    } else if (sheet === 'Materia') {
+        url = `${apiUrlMateria}?action=update`;
+    } else if (sheet === 'Material') {
+        url = `${apiUrlMaterial}?action=update`;
+    }
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams(data)
+    })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            loadData(sheet);
+        })
+        .catch(error => console.error('Error al editar datos:', error));
+}
+
+// Función para eliminar datos
+function deleteData(sheet, index) {
+    let url = '';
+    if (sheet === 'Facultad') {
+        url = `${apiUrlFacultad}?action=delete&id=${index + 1}`;
+    } else if (sheet === 'Materia') {
+        url = `${apiUrlMateria}?action=delete&id=${index + 1}`;
+    } else if (sheet === 'Material') {
+        url = `${apiUrlMaterial}?action=delete&id=${index + 1}`;
+    }
+
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            loadData(sheet);
+        })
+        .catch(error => console.error('Error al eliminar datos:', error));
+}
+
 // Función para cargar datos
 function loadData(sheet) {
-    fetch(`${apiUrl}?action=read&sheet=${sheet}`)
+    let url = '';
+    if (sheet === 'Facultad') {
+        url = `${apiUrlFacultad}?action=read&sheet=${sheet}`;
+    } else if (sheet === 'Materia') {
+        url = `${apiUrlMateria}?action=read&sheet=${sheet}`;
+    } else if (sheet === 'Material') {
+        url = `${apiUrlMaterial}?action=read&sheet=${sheet}`;
+    }
+
+    fetch(url)
         .then(response => response.json())
         .then(data => {
             const tableBody = document.getElementById(`${sheet.toLowerCase()}Table`);
@@ -120,68 +185,4 @@ function loadData(sheet) {
             }
         })
         .catch(error => console.error('Error al cargar datos:', error));
-}
-
-// Función para editar datos
-function editData(sheet, index, ...args) {
-    const data = {};
-    if (sheet === 'Facultad') {
-        data.id = args[0];
-        data.descripcion = args[1];
-        data.tipo = 'Facultad';
-    } else if (sheet === 'Materia') {
-        data.id = args[0];
-        data.codigo = args[1];
-        data.descripcion = args[2];
-        data.tipo = 'Materia';
-    } else if (sheet === 'Material') {
-        data.id = args[0];
-        data.titulo = args[1];
-        data.autor = args[2];
-        data.fecha = args[3];
-        data.edicion = args[4];
-        data.tipo = 'Material';
-    }
-    let url = `${apiUrl}?action=update`;
-    Object.keys(data).forEach(key => {
-        url += `&${key}=${encodeURIComponent(data[key])}`;
-    });
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            alert(data);
-            loadData(data.tipo);
-        })
-        .catch(error => console.error('Error al editar datos:', error));
-}
-
-// Función para eliminar datos
-function deleteData(sheet, index) {
-    if (confirm("¿Estás seguro de que quieres eliminar este registro?")) {
-        fetch(`${apiUrl}?action=delete&sheet=${sheet}&id=${index + 1}`)
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                loadData(sheet);
-            })
-            .catch(error => console.error('Error al eliminar datos:', error));
-    }
-}
-
-// Función para mostrar secciones
-function showSection(section) {
-    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-    document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
-    document.querySelector(`#${section}`).classList.remove('hidden');
-    document.querySelector(`.nav-link[href="#${section}"]`).classList.add('active');
-
-    // Si se selecciona la página principal, mostrar el div 'paginaPrincipal' y ocultar las secciones individuales
-    if (section === 'paginaPrincipal') {
-        document.getElementById('paginaPrincipal').classList.remove('hidden');
-        document.getElementById('facultad').classList.add('hidden');
-        document.getElementById('materia').classList.add('hidden');
-        document.getElementById('material').classList.add('hidden');
-    } else {
-        document.getElementById('paginaPrincipal').classList.add('hidden');
-    }
 }
