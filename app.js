@@ -14,6 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
         createData('Facultad', formData);
     });
 
+    // Función para enviar el formulario
+function submitForm(formId) {
+    const form = document.getElementById(formId);
+    if (form) {
+        const formData = new FormData(form);
+        const sheetType = formId.replace('Form', ''); // Obtener el tipo de hoja (Facultad, Materia, Material)
+        createData(sheetType, formData); // Llamar a la función createData para enviar los datos
+    }
+}
+
+
     document.getElementById('MateriaForm').addEventListener('submit', e => {
         e.preventDefault();
         const formData = {
