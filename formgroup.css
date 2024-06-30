@@ -9,6 +9,27 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra opcional */
 }
 
+#MateriaForm {
+  width: 380px; /* Ajusta el ancho del formulario */
+  margin: 40px auto; /* Centra el formulario horizontalmente y agrega espacio superior */
+  border: 1px solid #ccc; /* Borde opcional para visibilidad */
+  padding: 18px; /* Espaciado interno */
+  background-color: #f9f9f9; /* Color de fondo opcional */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+}
+
+#MaterialForm {
+  width: 380px; /* Ajusta el ancho del formulario */
+  margin: 40px auto; /* Centra el formulario horizontalmente y agrega espacio superior */
+  border: 1px solid #ccc; /* Borde opcional para visibilidad */
+  padding: 18px; /* Espaciado interno */
+  background-color: #f9f9f9; /* Color de fondo opcional */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+}
+
+
 /* Estilos para los grupos de formularios */
 .form-group {
   margin-bottom: 10px; /* Espaciado inferior entre campos */
